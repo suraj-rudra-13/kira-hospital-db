@@ -5,7 +5,7 @@ db = myc.connect(
     host="hospital-db.c9nzenfd5ofs.ap-south-1.rds.amazonaws.com",
     user="kira",
     password="kira1801",
-    database="vertice"
+    database="horizon"
 )
 
 cursor = db.cursor()
@@ -27,7 +27,7 @@ def doctor():
 @app.route('/doctor/treatments', methods=['POST'])
 def treatments():
     if request.method == 'POST':
-        username = "doctor" #to be extracted from db later 
+        username = "101" #to be extracted from db later 
         pasw = "doctor" #to be extracted from db later
         if(request.form.get('username') == username and request.form.get('password') == pasw):
             return redirect(f'/doctor/treatments/details/{username}')
@@ -38,9 +38,13 @@ def treatments():
 
 @app.route('/doctor/treatments/details/<string:user>')
 def details(user):
-    query = f"select * from treats where doctor_id={user};"
+    query = f"select * from treats where doctor_id = {user} "
     cursor.execute(query)
-    return render_template('treatments', cursor = cursor)
+    result = cursor.fetchall()
+    for i in result:
+        print("1")
+        print(i)
+    return render_template('treatments.html', cursors = result )
 
 if __name__ == "__main__":
     app.run(debug=True)

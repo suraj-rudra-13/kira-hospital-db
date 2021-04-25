@@ -10,15 +10,15 @@
     <table>
         <thead>
             <tr>
-                <th>Doc ID</th>
-                <th>Details</th>
+                <th>Doc ID</th> 
+                <th>Patient ID</th>
             </tr>
         </thead>
         <tbody>
-            {% for i in cursor %}
+            {% for i in cursors %}
             <tr>
-                <td>cursor</td>
-                <td>cursor</td>
+                <td>{{ i[0] }} </td>
+                <td>{{ i[1] }}</td>
             </tr>
             {% endfor %}
         </tbody>

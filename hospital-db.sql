@@ -2,8 +2,7 @@
   doctor_id int primary key,
   first_name varchar(20),
   middle_name varchar(20),
-  last_name varchar(20),
-  name varchar(60) AS (concat_ws(' ', first_name, middle_name, last_name))
+  last_name varchar(20)
 );
 
 create table doc_qual(
@@ -24,13 +23,10 @@ create table patient(
   first_name varchar(20),
   middle_name varchar(20),
   last_name varchar(20),
-  name varchar(60) AS (concat_ws(' ', first_name, middle_name, last_name)),
   dob date,
-  age real AS (datediff('year', '2021-01-01')),
   locality varchar(10),
   city varchar(20),
   pincode varchar(6),
-  address varchar(36) AS (concat_ws(' ', locality, city, pincode)) 
 );
 
 create table medicine(
@@ -54,3 +50,8 @@ create table bills(
   foreign key(bill) references medicine(bill),
   foreign key(patient_id) references patient(patient_id)
 )
+
+alter table doctor add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));
+alter table patient add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));
+alter table patient add column  (age real AS (datediff('year', '2021-01-01')));
+alter table patient add column (address varchar(36) AS (concat_ws(' ', locality, city, pincode)));
