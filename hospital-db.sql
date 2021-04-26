@@ -37,7 +37,7 @@ create table medicine(
 );
 
 create table treats(
-  patient_id int,
+  patient_id int primary key,
   doctor_id int,
   foreign key(doctor_id) references doctor(doctor_id),
   foreign key(patient_id) references patient(patient_id)
@@ -46,10 +46,13 @@ create table treats(
 
 create table bills(
   patient_id int,
+  medicine_code int,
   bill real,
-  foreign key(bill) references medicine(bill),
+  primary key(patient_id, medicine_code),
+  foreign key(medicine_code) references medicine(code),
   foreign key(patient_id) references patient(patient_id)
 )
+
 
 alter table doctor add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));
 alter table patient add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));

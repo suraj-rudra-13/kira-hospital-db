@@ -20,6 +20,16 @@ def home():
 def admin():
     return render_template('admin_login.html')
 
+@app.route('/admin/portal', methods=["POST"])
+def admin_portal():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if username == "admin" and password == "admin":
+        return render_template('admin_portal.html')
+    else:
+        return render_template('admin_login.html')
+
+
 @app.route('/doctor')
 def doctor():
     return render_template('doctor_login.html')
@@ -95,7 +105,6 @@ def bills():
     cursor.execute(bill_proc)
     bill = cursor.fetchall()[0][0]
     return render_template("yourbill.html", result = result, patient=patient_name,doctor=doctor_name, bill=bill)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
