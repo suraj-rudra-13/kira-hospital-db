@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treatment Details | Doctor</title>
+    <title>Document</title>
 </head>
 <body>
-    Hello <b>Mr.{{doctor_name}}</b>, your current patients....
+    Dear {{patient}}
+    Your Doctor.{{doctor}} has given you some medicine,
+     Your Bill Summary is:
     <table>
         <thead>
             <tr>
                 <th>Patient ID</th>
-                <th>Patient Name</th>
+                <th>Medicine ID</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
@@ -20,10 +23,13 @@
             <tr>
                 <td>{{ i[0] }} </td>
                 <td>{{ i[1] }}</td>
-                <td><a href="/medicine/{{i[0]}}"><input type="button"  value="Update"></a></td>
+                <td>{{ i[2] }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div>
+        Your Final bill is : {{bill}}
+    </div>
 </body>
 </html>

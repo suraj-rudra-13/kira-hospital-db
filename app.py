@@ -38,13 +38,64 @@ def treatments():
 
 @app.route('/doctor/treatments/details/<string:user>')
 def details(user):
-    query = f"select * from treats where doctor_id = {user} "
+    query = f"select treats.patient_id, patient.first_name from treats inner join patient on patient.patient_id = treats.patient_id where treats.doctor_id={user}"
     cursor.execute(query)
     result = cursor.fetchall()
-    for i in result:
-        print("1")
-        print(i)
-    return render_template('treatments.html', cursors = result )
+    query = f"select first_name from doctor where doctor_id ={user}"
+    cursor.execute(query)
+    doctor_name = cursor.fetchall()[0][0]
+    return render_template('treatments.html', result = result, doctor_name = doctor_name )
+
+
+@app.route('/medicine/<string:pid>')
+def medicine(pid):
+    query = "select * from medicine"
+    query1 = f"select first_name from patient where patient_id={pid}"
+    cursor.execute(query)
+    medicine_list = cursor.fetchall()
+    cursor.execute(query1)
+    pname = cursor.fetchall()[0][0]
+    return render_template("medicine_update.html",medicine_list = medicine_list, pid=pid, name=pname)
+
+
+@app.route('/medicine/update/<string:pid>', methods=["POST"])
+def med_update(pid):
+    med_list = request.form.getlist('medicine')
+    for i in med_list:
+        query = f"select price from medicine where code={i}"
+        cursor.execute(query)
+        price = cursor.fetchall()[0][0]
+        print(price)
+        query1=f"insert into bills values({pid},{i},{price})"
+        cursor.execute(query1)
+        db.commit()
+    return "Done updation. <a href='/' >back to mainmenu</a>"
+
+
+@app.route('/patient')
+def patient():
+    return render_template("patient_register.html")
+
+@app.route('/patient/bills', methods=["POST"])
+def bills():
+    pid = request.form.get("pid")
+    query1 = f"select first_name from patient where patient_id ={pid}"
+    cursor.execute(query1)
+    patient_name = cursor.fetchall()[0][0]
+    query = f"select doctor_id from treats where patient_id={pid}"
+    cursor.execute(query)
+    doc_id = cursor.fetchall()[0][0]
+    query = f"select first_name from doctor where doctor_id ={doc_id}"
+    cursor.execute(query)
+    doctor_name = cursor.fetchall()[0][0]
+    query = f"select * from bills where patient_id={pid}"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    bill_proc = f"call getBill({pid})"
+    cursor.execute(bill_proc)
+    bill = cursor.fetchall()[0][0]
+    return render_template("yourbill.html", result = result, patient=patient_name,doctor=doctor_name, bill=bill)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
