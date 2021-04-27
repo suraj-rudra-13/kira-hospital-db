@@ -4,7 +4,7 @@ db = mysql.connector.connect(
     host="hospital-db.c9nzenfd5ofs.ap-south-1.rds.amazonaws.com",
     user="kira",
     password="kira1801",
-    database="test"
+    database="project"
 )
 cursor = db.cursor()
 file = open('hospital-db.sql')

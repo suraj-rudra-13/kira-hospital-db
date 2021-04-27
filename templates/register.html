@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/admin/register" method="POST">
+    <table>
+        <thead>
+            <tr>
+                    
+                <th>Patient ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>Locality</th>
+                <th>City</th>
+                <th>Pincode</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td><input type="text" name="patient_id"></td>
+                    <td><input type="text" name="first_name"></td>
+                    <td><input type="text" name="middle_name"></td>
+                    <td><input type="text" name="last_name"></td>
+                    <td><input type="text" name="dob" placeholder="YYYY-MM-DD"></td>
+                    <td><input type="text" name="locality"></td>
+                    <td><input type="text" name="city"></td>
+                    <td><input type="text" name="pincode"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br><input type="submit" value="Register">
+    </form>
+</body>
+</html>

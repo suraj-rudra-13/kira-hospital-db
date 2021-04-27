@@ -26,7 +26,7 @@ create table patient(
   dob date,
   locality varchar(10),
   city varchar(20),
-  pincode varchar(6),
+  pincode varchar(6)
 );
 
 create table medicine(
@@ -51,10 +51,60 @@ create table bills(
   primary key(patient_id, medicine_code),
   foreign key(medicine_code) references medicine(code),
   foreign key(patient_id) references patient(patient_id)
-)
+);
 
 
-alter table doctor add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));
-alter table patient add column (name varchar(60) as (concat_ws(' ', first_name, middle_name, last_name)));
-alter table patient add column  (age real AS (datediff('year', '2021-01-01')));
-alter table patient add column (address varchar(36) AS (concat_ws(' ', locality, city, pincode)));
+insert into doctor values(101,"","","");
+insert into doctor values(101,"","","");
+insert into doctor values(101,"","","");
+insert into doctor values(101,"","","");
+insert into doctor values(101,"","","");
+insert into doctor values(101,"","","");
+
+
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+insert into patient values(201,"","","","","","",);
+
+
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+insert into medicine values(10001,"",);
+
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+insert into treats values(201,103);
+
+
+
+create view creator as select doctor.first_name as dname, patient.first_name as pname from  ((treats inner join patient on treats.patient_id=patient.patient_id) inner join doctor on treats.doctor_id=doctor.doctor_id);
+create view heamler as select doctor.doctor_id,doctor.name as Dname,doc_qual.qualification from doctor inner join doc_qual on doc_qual.doctor_id=doctor.doctor_id;

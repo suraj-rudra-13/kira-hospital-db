@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href='{{url_for("static", filename="css/table.css")}}' >
+    <title>Document</title>
+</head>
+<body>
+    {% if treatment %}
+    <table class="details">
+        <thead>
+            <tr>
+                    
+                <th>Doctor Name</th>
+                <th>Patient Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in treatment %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if doctor %}
+    <table class="details">
+        <thead>
+            <tr>
+                    
+                <th>Doctor Id</th>
+                <th>Name</th>
+                <th>Qualification</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in doctor %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>{{i[2]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if bills %}
+        <table class="details">
+            <thead>
+                <tr>        
+                    <th>Patient Id</th>
+                    <th>Medicine</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in bills %}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% if patient %}
+    <table class="details">
+        <thead>
+            <tr>
+                    
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>DOB</th>
+                <th>Locality</th>
+                <th>City</th>
+                <th>Pincode</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in patient %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}} {{i[2]}} {{i[3]}}</td>
+                    <td>{{i[4]}}</td>
+                    <td>{{i[5]}}</td>
+                    <td>{{i[6]}}</td>
+                    <td>{{i[7]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <a href="/register"><button class="btn">Register New</button></a>
+</body>
+</html>

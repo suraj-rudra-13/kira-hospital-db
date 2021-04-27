@@ -29,6 +29,49 @@ def admin_portal():
     else:
         return render_template('admin_login.html')
 
+@app.route('/admin/portal/<string:choice>')
+def portal(choice):
+    if choice=="treatments":
+        query = f"select * from creator"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return render_template('view.html',result=result)
+    elif choice =="doctor":
+        query= f"select * from heamler"
+        cursor.execute(query)
+        doctor = cursor.fetchall()
+        return render_template('view.html',doctor=doctor)
+    elif choice=="bills":
+        query= f"select * from bills"
+        cursor.execute(query)
+        bills = cursor.fetchall()
+        return render_template('view.html',bills=bills)
+    elif choice=="patients":
+        query= f"select * from patient"
+        cursor.execute(query)
+        patient = cursor.fetchall()
+        return render_template('view.html',patient=patient)
+
+@app.route('/register')
+def register():
+    return render_template('register.html') 
+
+@app.route('/admin/register', methods=['POST'])
+def newregister():
+    if request.method == 'POST':
+        patient_id=request.form.get('patient_id')
+        first_name=request.form.get('first_name')
+        middle_name=request.form.get('middle_name')
+        last_name=request.form.get('last_name')
+        locality=request.form.get('locality')
+        pincode=request.form.get('pincode')
+        city=request.form.get('city')
+        dob=request.form.get('dob')
+        print(type(first_name))
+        ops=f'Insert into patient values ({patient_id},"{first_name}","{middle_name}","{last_name}","{dob}","{locality}","{city}",{pincode})'
+        cursor.execute(ops)
+        return "<h1>Success</h1>"
+
 
 @app.route('/doctor')
 def doctor():
